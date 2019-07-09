@@ -3,9 +3,11 @@ Explanation of Server side authentication for each language settings with sample
 
 
 ### Java
+Need [Web3j](https://github.com/web3j/web3j#getting-started). Following codes are based on version 4.2.0.
 
-[Web3j](https://github.com/web3j/web3j#getting-started) Add. Following codes are based on version 4.2.0.  
-For eash of calling Contract method; [IdentityRegistry](https://github.com/YoungBaeJeon/metadium_android_sdk/edit/master/app/src/main/java/com/metadium/metadiumsdk/IdentityRegistry.java), [ServiceKeyResolver](https://github.com/YoungBaeJeon/metadium_android_sdk/edit/master/app/src/main/java/com/metadium/metadiumsdk/IdentityRegistry.java) copy the source and include it in the project. 
+Contract code generate [IdentityRegistry](https://explorer.metadium.com/address/0x42bbff659772231bb63c7c175a1021e080a4cf9d/code), [ServiceKeyResolver](https://explorer.metadium.com/address/0x5d4b8c6c6abecf9b5277747fa15980b964c40ce3/code). Show [Web3j](https://web3j.readthedocs.io/en/latest/smart_contracts.html)  
+Import Generated java souce
+
 
 ```java
 // signature util method
