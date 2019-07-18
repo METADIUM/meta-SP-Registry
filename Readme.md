@@ -15,7 +15,7 @@ Keepin can help users to manage ID and Authentication in a single application. U
 #### Download Keepin
 
 **Install Keepin for TestNet when testing with example apps or integration to newly registered Service ID.**  
-If Keepin for Mainnet is already installed, be sure to delete and install.*
+If Keepin for Mainnet is already installed, be sure to delete and install.
 
 * Android
   * [MainNet](https://play.google.com/store/apps/details?id=com.coinplug.metadium) : Install in Google Playstore
