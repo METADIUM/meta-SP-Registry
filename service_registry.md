@@ -1,5 +1,11 @@
 # Service Reigstration
 
+### Registration Process
+
+- Press edit button on the top right corner of this document.
+- Refer to the following list of service information to fill up the table.
+- For iOS application, register a scheme for Keepin application by entering service id in the table.
+- After filling in all the necessary information, send out pull request. Then, Metadium team will review the information and reflect it to the code.
 
 ### Service Infomaton
 
