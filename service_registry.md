@@ -23,7 +23,7 @@ For all of the following, English input is a mandatory, then extra language form
 
 index | service id | name | description | icon url | Android package name | iOS applcation id | Web url
 ------|------------|------|-------------|----------|----------------------|-------------------|----------
-1     | com.coinplug.metasafe | metaSAFE | Coinplug CryptoCurrency Assurance Services<br>ko:코인플러그 암호화폐 자산 보장 서비스 | https://raw.githubusercontent.com/METADIUM/static/master/service/image/MetaSafe.png | com.coinplug.metasafe | id1466031070 |   
+1     | com.globalstep.metadiumtest | globalstepmetadium | Coinplug CryptoCurrency Assurance Services<br>ko:코인플러그 암호화폐 자산 보장 서비스 | https://raw.githubusercontent.com/METADIUM/static/master/service/image/MetaSafe.png | com.globalstep.metadiumtest | id1466031070 |   
 
 
 ### iOS pre-register scheme
