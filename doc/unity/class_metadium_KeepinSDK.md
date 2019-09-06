@@ -43,10 +43,13 @@ Authentication()
 Request authentication of the service in Keepin App.
 
 *Parameters*
-  * callback : Callback delegate to receive response to authentication
-  * nonce : Data to sign with the service key
-  * autoRegister : If service is not registered and this value is true, request to register.
-  * expectMetaId : Expect Keepin's Meta ID to match the given Meta ID. If IDs are not same, error code reponse with NotMatchedMetaID(2)
+  * callback : Callback delegate to receive response to authentication. **required**
+  * nonce : Data to sign with the service key. **required**
+  * autoRegister : If service is not registered and this value is true, request to register. **optional default false**
+  * expectMetaId : Expect Keepin's Meta ID to match the given Meta ID. If IDs are not same, error code reponse with NotMatchedMetaID(2). **optional default null**
+
+*Throws*
+  * callback or nonce is null
 
 Initialize()
 ----------------------------------------------------
@@ -59,6 +62,9 @@ SDK initializing
 
 *Returns*
   * SDK instance
+
+*Throws*
+  * ServiceId is null or empty string
 
 Install()
 -------------------------------------------------
