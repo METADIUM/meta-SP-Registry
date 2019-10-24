@@ -3,97 +3,37 @@ Explanation of Server side authentication for each language settings with sample
 
 
 ### Java
-Need [Web3j](https://github.com/web3j/web3j#getting-started). Following codes are based on version 4.2.0.
-
-Contract code generate [IdentityRegistry](https://explorer.metadium.com/address/0x42bbff659772231bb63c7c175a1021e080a4cf9d/code), [ServiceKeyResolver](https://explorer.metadium.com/address/0x5d4b8c6c6abecf9b5277747fa15980b964c40ce3/code). Show [Web3j](https://web3j.readthedocs.io/en/latest/smart_contracts.html)  
-Import Generated java souce
+Need [Metadium did-resolver-java-client](https://github.com/METADIUM/did-resolver-java-client). 
 
 
 ```java
-// signature util method
-public static Sign.SignatureData stringToSignatureData(String signature) {
-    byte[] bytes = Numeric.hexStringToByteArray(signature);
-    return new Sign.SignatureData(bytes[64], Arrays.copyOfRange(bytes, 0, 32), Arrays.copyOfRange(bytes, 32, 64));
-}
-
-final bool IS_TEST_NET = true;
-final String OPEN_API_NODE_URL = IS_TEST_NET ? "https://api.metadium.com/dev" : "https://api.metadium.com/prod";    // testnet, mainnet node url
-final String IDENTITY_REGISTRY_CONTRACT_ADDRESS = IS_TEST_NET ? "0xbe2bb3d7085ff04bde4b3f177a730a826f05cb70" : "0x42bbff659772231bb63c7c175a1021e080a4cf9d";    // contract address of IdentityRegistry (testnet, mainnet)
-
 String nonce = "...";       // nonce value sent to Keepin App
 String sinature = "...";    // Signature value from Keepin App
 String metaId = "...";      // Meta ID value fromp Keepin App
-String serviceId = "...";   // Registered service id
 
-// Retrieve signer's addres via ec-recover
-SignatureData signatureData = stringToSignatureData(signature);
-BigInteger publicKey;
-try {
-    publicKey = Sign.signedMessageToKey(nonce.getBytes(), signatureData);
-}
-catch (SignatureException e) {
-    // invalid signature
-    return;
-}
-String key = Numeric.prependHexPrefix(Keys.getAddress(publicKey));
+final bool IS_TEST_NET = true;
 
-// convert metaId to ein
-BigInteger ein = Numeric.toBigInt(metaId);
+// Make did with Meta ID
+final String did = (IS_TEST_NET ? "did:meta:" : "did:meta:testnet:")+metaId;
 
-// Obtain resolver address from IdentityRegistry
-Web3j web3j = Web3j.build(new HttpService(OPEN_API_NODE_URL));
-IdentityRegistry identityRegistry = IdentityRegistry.load(
-        IDENTITY_REGISTRY_CONTRACT_ADDRESS,
-        web3j,
-        new ReadonlyTransactionManager(web3j, null),
-        new StaticGasProvider(BigInteger.ZERO, BigInteger.ZERO)
-);
-String resolverAddress;
-try {
-    Tuple4<String, List<String>, List<String>, List<String>> identity = identityRegistry.getIdentity(ein).send();
-    if (identity.getValue4().size() > 0) {
-        resolverAddress = identity.getValue4().get(0);
-    }
-    else {
-        // not exists resolver
-    }
-}
-catch (Exception e) {
-    // not found identity or call error
-    return;
+// Get did document
+DidDocument didDocument = DIDResolverAPI.getInstance().getDocument(did, true);
+if (didDocument == null) {
+	// TODO Not found did document
+	return;
 }
 
-// Check for Key Registration
-ServiceKeyResolver serviceKeyResolver = ServiceKeyResolver.load(
-        resolverAddress,
-        web3j,
-        new ReadonlyTransactionManager(web3j, null),
-        new StaticGasProvider(BigInteger.ZERO, BigInteger.ZERO)
-);
-try {
-    boolean hasForKey = serviceKeyResolver.isKeyFor(key, ein).send();
-    String symbol = serviceKeyResolver.getSymbol(key).send();
+// Check if did document has address with signature
+boolean verified = didDocument.hasRecoverAddressFromSignature(nonce.getBytes(StandardCharsets.UTF_8), signature);
 
-    if (hasForKey) {
-        if (serviceId.equalsIgnoreCase(symbol)) {
-            // Key is registered
-        }
-        else {
-            // Key is registered, but service hasn't been registered
-        }
-    }
-    else {
-        // Key is not registered
-    }
-}
-catch (Exception e) {
-    // error
-}
 ```
-  
-  
+
   
 ### JavaScript
+Need [Web3js](https://web3js.readthedocs.io/en/v1.2.2/getting-started.html).
+
+Will add did-resolver later.
+
 ```javascript
 import Web3 from 'web3';
 
